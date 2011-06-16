@@ -26,8 +26,12 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec-expectations>, [">= 2.0.0.beta.19"])
       s.add_development_dependency(%q<rr>, [">= 0.10.11"])
       s.add_development_dependency(%q<rake>, [">= 0.8.7"])
-      s.add_development_dependency(%q<ruby-debug>, [">= 0"]) if RUBY_VERSION < "1.9"
-      s.add_development_dependency(%q<ruby-debug19>, [">= 0"]) if RUBY_VERSION > "1.9"
+      if RUBY_VERSION > "1.9" && RUBY_ENGINE == "mri"
+        s.add_development_dependency(%q<ruby-debug19>, [">= 0"])
+      elsif RUBY_VERSION < "1.9" && RUBY_ENGINE == "mri"
+        s.add_development_dependency(%q<ruby-debug>, [">= 0"]) 
+      end
+        
       s.add_development_dependency(%q<parka>, [">= 0.3.1"])
       s.add_runtime_dependency(%q<faraday-stack>, [">= 0"])
       s.add_runtime_dependency(%q<yajl-ruby>, [">= 0.7.7"])
